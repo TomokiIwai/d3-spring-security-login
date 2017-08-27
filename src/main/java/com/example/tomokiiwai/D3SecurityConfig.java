@@ -1,6 +1,7 @@
 package com.example.tomokiiwai;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -125,5 +127,13 @@ public class D3SecurityConfig extends WebSecurityConfigurerAdapter {
 				//
 				// REST APIを実装する際などは、下記のようにログインが必要な旨を示すJSONを返したくなるはず
 				.authenticationEntryPoint(LOGIN_REQUIRED);
+	}
+
+	/**
+	 * ThymeleafでSpringSecurity変数を扱うDialectを登録
+	 */
+	@Bean
+	public SpringSecurityDialect springSecurityDialect() {
+		return new SpringSecurityDialect();
 	}
 }

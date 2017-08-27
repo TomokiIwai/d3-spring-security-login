@@ -22,7 +22,7 @@ public class D3Controller {
 	 */
 	@RequestMapping("/")
 	public String index() {
-		return "/index.html";
+		return "index";
 	}
 
 	/**

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>トップページ</title>
@@ -15,6 +15,10 @@
     <input type="text" name="password" placeholder="パスワードを入力(例:password)">
     <input type="button" value="ログイン" id="doLogin">
 </form>
+
+<div sec:authorize="hasRole('ROLE_USER')">
+    <h6><span sec:authentication="name"></span>でログイン済みです。</h6>
+</div>
 
 <script>
   /**

@@ -20,11 +20,21 @@ repositories {
     mavenCentral()
 }
 
+// Thymeleaf 3を利用する設定
+// Spring Boot1.5.6ではThymeleaf2系がデフォルト
+ext['thymeleaf.version'] = '3.0.3.RELEASE'
+ext['thymeleaf-layout-dialect.version'] = '2.2.1'
+
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}")
+    compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.2.RELEASE")
+
+
     runtime('com.h2database:h2')
+
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
     testCompile("org.springframework.security:spring-security-test:${springBootVersion}")
 }
