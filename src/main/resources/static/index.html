@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>トップページ</title>
+</head>
+<body>
+
+<span id="msg"></span>
+
+<input type="button" value="ログイン開始" id="login">
+
+<form style="display: none">
+    <input type="text" name="username" placeholder="ユーザー名を入力(例:tomoki)">
+    <input type="text" name="password" placeholder="パスワードを入力(例:password)">
+    <input type="button" value="ログイン" id="doLogin">
+</form>
+
+<script>
+  /**
+   * ログインを行います。
+   *
+   * @returns {Promise}
+   */
+  function doLogin() {
+    return new Promise(function (resolve, reject) {
+      var xhr = new XMLHttpRequest();
+
+      xhr.open('POST', '/login');
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.onload = function () {
+        alert(xhr.responseText);
+
+        if (xhr.status === 200) {
+          resolve();
+        } else {
+          reject();
+        }
+      };
+      xhr.send(encodeURI('username=' + document.getElementsByName('username')[0].value + '&password=' + document.getElementsByName('password')[0].value));
+    });
+  }
+
+  var $msg = document.getElementById('msg');
+  var $login = document.getElementById('login');
+  var $doLogin = document.getElementById('doLogin');
+  var $form = document.getElementsByTagName('form')[0];
+
+  /**
+   * ログイン開始ボタンがクリックされた際に呼び出されます。
+   */
+  $login.addEventListener('click', function () {
+    $login.style.display = 'none';
+    $form.style.display = 'block';
+  });
+
+  /**
+   * フォームのログインボタンがクリックされた際に呼び出されます。
+   */
+  $doLogin.addEventListener('click', function () {
+    doLogin().then(function () {
+      $form.style.display = 'none';
+      $msg.innerText = 'ログインできました。'
+    }).catch(function () {
+      $msg.innerText = 'ユーザー名かパスワードが間違っています。'
+    });
+  });
+</script>
+</body>
+</html>
